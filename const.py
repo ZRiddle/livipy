@@ -1,5 +1,3 @@
-
-
 class Sizes:
     s4x6 = "4x6"
     s5x7 = "5x7"

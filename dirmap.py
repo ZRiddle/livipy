@@ -1,5 +1,6 @@
 import glob
 import os
+
 from const import Sizes
 
 _MAP_FILE = "mapping.txt"
@@ -35,19 +36,32 @@ class DirMap:
 
         # Check deal_name exists in base dir
         deal_path_exists = deal_name in os.listdir(cls.BASE_DIR)
-        if not deal_path_exists:
-            print(f"Error: Deal path {deal_name} not found in {cls.PRINTABLES}/")
-            print(f"Please add row to `mapping.txt` for {deal_name}=")
+        assert deal_path_exists, (
+            f"\n\nDeal path `{deal_name}/` not found in {cls.PRINTABLES}/\n"
+            f"Run this to add a new row in the mapping\n> ct map '{deal_name}=path_to_dealname'"
+        )
 
         return os.path.join(cls.BASE_DIR, deal_name)
+
+    @classmethod
+    def append_to_map(cls, row_str: str):
+        assert "=" in row_str, f"new row needs a `=`, got {row_str}"
+        name, path = row_str.split("=")
+        full_path = os.path.join(cls.BASE_DIR, path)
+        # Make sure the path exists
+        assert os.path.exists(full_path), f"Folder doesn't exist: {full_path}"
+
+        with open(_MAP_FILE, "a") as f:
+            f.write(row_str + "\n")
 
     @classmethod
     def downloads_folder(cls) -> str:
         return os.path.join(os.path.expanduser("~"), "Downloads")
 
     @classmethod
-    def get_latest_file(cls, folder: str) -> str:
-        list_of_files = glob.glob(f"{folder}/*.csv")
+    def get_latest_file(cls, folder: str, filetype: str = "pdf") -> str:
+        filetype = filetype.replace(".", "")  # remove any `.`
+        list_of_files = glob.glob(f"{folder}/*.{filetype}")
         return max(list_of_files, key=os.path.getmtime)
 
     @classmethod

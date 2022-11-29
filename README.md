@@ -2,6 +2,24 @@
 
 Automation for etsy / jane shops
 
+# Setup
+
+```shell
+git clone git@github.com:ZRiddle/livipy.git
+cd livipy
+pip install -U pip
+pip install -r requirements.txt
+echo 'alias ct="python ~/source/livipy/cli.py"' >> ~/.bash_profile
+```
+
+java setup
+```shell
+which java
+java --version
+brew install java
+echo 'export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"' >> ~/.bash_profile
+```
+
 # Steps
 
 1. download orders - currently tedious
