@@ -56,7 +56,9 @@ class Order:
 
     def copy_to_temp(self):
         if not self.is_valid:
+            print(f" ❌ [SKIP] {self.quantity}x  {self.design}, bad filename")
             return
+        print(f" ✅ [COPY] {self.quantity}x  {self.design}")
         for _ in range(self.quantity):
             self._copy_once()
 
@@ -163,9 +165,9 @@ class Order:
 
         valid_str = "✅" if valid_len else "❌"
         if self.is_set or len(filename_guesess) == 0 or not valid_len:
-            print(f"{valid_str} {self.design} = {filename_guesess}")
+            print(f" {valid_str} {self.design} = {filename_guesess}")
         else:
-            print(f"{valid_str} {self.design} = {filename_guesess[0]}")
+            print(f" {valid_str} {self.design} = {filename_guesess[0]}")
         return valid_len
 
     def __repr__(self):
@@ -214,8 +216,9 @@ class OrderList:
         return cls(orders)
 
     def print_orders(self):
+        print(f"\nLoaded {len(self.orders)} rows")
         for order in self.orders:
-            print(order)
+            print(f" {order}")
 
     def confirm_filenames(self) -> int:
         """Returns a count of rows that are invalid"""
@@ -227,9 +230,11 @@ class OrderList:
     def copy_all(self):
         for order in self.orders:
             order.copy_to_temp()
+
+        print(f"\nCurrent temp file counts:")
         for tmp in TEMP_FOLDERS:
             dir = os.path.join(DirMap.TEMP_DIR, tmp)
-            print(f"{dir}\t{len(os.listdir(dir))} files")
+            print(f" {tmp}\t{len(os.listdir(dir))} files")
 
 
 if __name__ == "__main__":

@@ -42,6 +42,7 @@ def clear_temp_folders(verbose: bool):
     print(f"Clearing temp folders...")
     DirMap.clear_temp_folders()  # TODO - add verbose
     print(f"All folders cleared in {DirMap.TEMP_DIR}")
+    print(f"\nSuccess!\n")
 
 
 @cli.command("copy")
@@ -61,7 +62,6 @@ def copy_files(filename: Optional[str], filetype: str):
     print(f"Copying files to temp folders based on {filename}")
 
     order_list = OrderList.from_file(filename)
-    print("")
     order_list.print_orders()
 
     print(f"\nConfirming filenames")
@@ -71,7 +71,7 @@ def copy_files(filename: Optional[str], filetype: str):
         return
     print("\nCopying files to temp folder...")
     order_list.copy_all()
-    print(f"Success!")
+    print(f"\nSuccess!\n")
 
 
 @cli.command("map")
@@ -79,7 +79,8 @@ def copy_files(filename: Optional[str], filetype: str):
 def add_map(row: str):
     """Add a mapping of a deal name to a folder from Printables/"""
     print(f"Adding row to mapping")
-    return DirMap.append_to_map(row)
+    DirMap.append_to_map(row)
+    print(f"\nSuccess!\n")
 
 
 if __name__ == "__main__":
