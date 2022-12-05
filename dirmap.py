@@ -17,7 +17,7 @@ def _build_map_from_file(map_file: str = _MAP_FILE):
 
 
 class DirMap:
-    PRINTABLES: str = "Documents/Liviloudes\ PH/Printables"
+    PRINTABLES: str = "Documents/Liviloudes PH/Printables"
     BASE_DIR = os.path.join(os.path.expanduser("~"), PRINTABLES)
     TEMP_DIR = os.path.join(BASE_DIR, "temp")
     _mapping = _build_map_from_file()
