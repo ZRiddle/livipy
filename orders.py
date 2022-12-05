@@ -110,6 +110,8 @@ class Order:
                 f" {design_number}a" in f
                 or f" {design_number}b" in f
                 or f" {design_number}c" in f
+                or f" {design_number}.jpg" in f
+                or f" {design_number}.pdf" in f
             ):
                 matches.append(f)
                 if verbose:
