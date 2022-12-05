@@ -72,12 +72,12 @@ class Order:
             i = 1
             fname, ext = f.split(".")
             while os.path.exists(
-                os.path.join(self.temp_folder, fname + f"_{str(i)}" + ext)
+                os.path.join(self.temp_folder, fname + f"_{str(i)}." + ext)
             ):
                 i += 1
             shutil.copy(
                 os.path.join(self.dir, f),
-                os.path.join(self.temp_folder, fname + f"_{str(i)}" + ext),
+                os.path.join(self.temp_folder, fname + f"_{str(i)}." + ext),
             )
         return
 
