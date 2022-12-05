@@ -36,7 +36,9 @@ class Order:
         assert (
             self.size in Sizes.all
         ), f"Bad `size` field. Got {self.size}, expected one of {Sizes.all}"
-        self.is_set = self.design[:6].lower() == "set of"
+        self.is_set = (
+            self.design[:6].lower() == "set of" or self.design[:3].lower() == "set"
+        )
 
     @classmethod
     def from_pdf_row(cls, row: pd.Series) -> Order:
