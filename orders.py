@@ -66,18 +66,18 @@ class Order:
 
     def _copy_once(self):
         """Copies the file to the temp folder"""
-        i = 1
-        extension = ".pdf"
-        while os.path.exists(
-            os.path.join(self.temp_folder, self.design + "_" + str(i) + extension)
-        ):
-            i += 1
 
         base_filenames = self.guess_filenames()
         for f in base_filenames:
+            i = 1
+            fname, ext = f.split(".")
+            while os.path.exists(
+                os.path.join(self.temp_folder, fname + f"_{str(i)}" + ext)
+            ):
+                i += 1
             shutil.copy(
                 os.path.join(self.dir, f),
-                os.path.join(self.temp_folder, self.design + "_" + str(i) + extension),
+                os.path.join(self.temp_folder, fname + f"_{str(i)}" + ext),
             )
         return
 
