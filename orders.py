@@ -132,11 +132,13 @@ class Order:
         if verbose:
             print(f"Finding matches for design={self.design}")
         for f in dir_files:
-            match_str = f"{design_number}-"
+            match_str = f"{design_number}"
             if (
-                f" {match_str}" in f
-                or f"-{match_str}" in f
+                f" {match_str}-" in f
+                or f"-{match_str}-" in f
                 or f[: len(match_str)] == match_str
+                or f" {match_str}.jpg" in f
+                or f" {match_str}.pdf" in f
             ):
                 matches.append(f)
                 if verbose:
