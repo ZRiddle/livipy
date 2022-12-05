@@ -56,9 +56,11 @@ class Order:
 
     def copy_to_temp(self):
         if not self.is_valid:
-            print(f" ❌ [SKIP] {self.quantity}x  {self.design}, bad filename")
+            print(
+                f" ❌ [SKIP] {self.quantity}x  {self.size} {self.design}, bad filename"
+            )
             return
-        print(f" ✅ [COPY] {self.quantity}x  {self.design}")
+        print(f" ✅ [COPY] {self.quantity}x  {self.size} {self.design}")
         for _ in range(self.quantity):
             self._copy_once()
 
