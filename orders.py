@@ -139,6 +139,8 @@ class Order:
                 or f[: len(match_str)] == match_str
                 or f" {match_str}.jpg" in f
                 or f" {match_str}.pdf" in f
+                or f"-{match_str}.jpg" in f
+                or f"-{match_str}.pdf" in f
             ):
                 matches.append(f)
                 if verbose:
