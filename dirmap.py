@@ -8,6 +8,11 @@ TEMP_FOLDERS = Sizes.all
 
 
 def _build_map_from_file(map_file: str = _MAP_FILE):
+    """Build a map from the mapping.txt file"""
+    if not os.path.exists(map_file):
+        map_file = os.path.join(
+            os.path.join(os.path.expanduser("~"), "source/livipy"), map_file
+        )
     with open(map_file, "r") as f:
         _map_txt = f.read()
 
