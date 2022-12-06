@@ -59,6 +59,8 @@ def copy_files(filename: Optional[str], filetype: str):
             f"No filename specified. Using latest {filetype} file in Downloads/\n"
             f"   {base_filename} - Downloaded {get_time_diff_string(os.path.getmtime(filename))}"
         )
+    if not os.path.exists(filename):
+        filename = os.path.join(DirMap.downloads_folder(), filename)
     print(f"Copying files to temp folders based on {filename}")
 
     order_list = OrderList.from_file(filename)
