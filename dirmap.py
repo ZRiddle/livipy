@@ -25,6 +25,8 @@ class DirMap:
     PRINTABLES: str = "Documents/Liviloudes PH/Printables"
     BASE_DIR = os.path.join(os.path.expanduser("~"), PRINTABLES)
     TEMP_DIR = os.path.join(BASE_DIR, "_temp")
+    SKU_DIR = os.path.join(BASE_DIR, "sku")
+    SKU_DIR_FILENAMES = os.listdir(SKU_DIR)
     _mapping = _build_map_from_file()
 
     @classmethod
