@@ -3,3 +3,4 @@ pandas
 pre-commit
 pytest
 tabula-py
+img2pdf

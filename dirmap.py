@@ -1,6 +1,8 @@
 import glob
 import os
 
+import img2pdf
+
 from const import Sizes
 
 _MAP_FILE = "mapping.txt"
@@ -27,6 +29,7 @@ class DirMap:
     TEMP_DIR = os.path.join(BASE_DIR, "_temp")
     SKU_DIR = os.path.join(BASE_DIR, "sku")
     SKU_DIR_FILENAMES = os.listdir(SKU_DIR)
+    FINAL_PDF_PATH = os.path.join(TEMP_DIR, "final.pdf")
     _mapping = _build_map_from_file()
 
     @classmethod
@@ -91,6 +94,28 @@ class DirMap:
                 print(f"{dir}\t - deleting {len(os.listdir(dir))} files")
             for f in os.listdir(dir):
                 os.remove(os.path.join(dir, f))
+
+    @classmethod
+    def combine_pdfs(cls):
+        """Combine all pdfs into 1 pdf file."""
+        files = []
+        for tmp in TEMP_FOLDERS:
+            dir = os.path.join(cls.TEMP_DIR, tmp)
+            files += [os.path.join(dir, file) for file in os.listdir(dir)]
+
+        if not len(files):
+            print("No files in temp folder.")
+            print("Skipping combine step.")
+            return
+
+        print(f"Combining {len(files)} files.")
+        # with PdfMerger() as merger:
+        #     for pdf in files:
+        #         merger.append(pdf)
+        #     merger.write(cls.FINAL_PDF_PATH)
+        with open(cls.FINAL_PDF_PATH, "wb") as f:
+            f.write(img2pdf.convert(files))
+        print(f"final pdf file written to {cls.FINAL_PDF_PATH}")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import logging
 import os
 import time
 from typing import Optional
@@ -7,6 +8,9 @@ import click
 
 from dirmap import DirMap
 from orders import OrderList
+
+logger = logging.getLogger("img2pdf")
+logger.setLevel(logging.ERROR)
 
 
 @click.group()
@@ -50,8 +54,10 @@ def clear_temp_folders(verbose: bool):
 @click.option("--filetype", "-t", default="pdf")
 def copy_files(filename: Optional[str], filetype: str):
     """Copy files based on a pdf in the Downloads/ folder.
+
     Currently, assume the file is in the Downloads folder.
-    If nothing is specified then get the latest .csv file"""
+    If nothing is specified then get the latest .csv file
+    """
     if not filename:
         filename = DirMap.get_latest_file(DirMap.downloads_folder(), filetype=filetype)
         base_filename = filename.split("/")[-1]
@@ -73,6 +79,9 @@ def copy_files(filename: Optional[str], filetype: str):
         return
     print("\nCopying files to temp folder...")
     order_list.copy_all()
+
+    print("")
+    DirMap.combine_pdfs()
     print(f"\nSuccess!\n")
 
 
