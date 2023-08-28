@@ -52,7 +52,8 @@ def clear_temp_folders(verbose: bool):
 @cli.command("copy")
 @click.option("--filename", "-f", default=None)
 @click.option("--filetype", "-t", default="pdf")
-def copy_files(filename: Optional[str], filetype: str):
+@click.option("--combine", "-c", default=False, is_flag=True)
+def copy_files(filename: Optional[str], filetype: str, combine: bool):
     """Copy files based on a pdf in the Downloads/ folder.
 
     Currently, assume the file is in the Downloads folder.
@@ -80,8 +81,9 @@ def copy_files(filename: Optional[str], filetype: str):
     print("\nCopying files to temp folder...")
     order_list.copy_all()
 
-    print("")
-    DirMap.combine_pdfs()
+    if combine:
+        print("")
+        DirMap.combine_pdfs()
     print(f"\nSuccess!\n")
 
 
